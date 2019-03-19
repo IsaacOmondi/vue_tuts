@@ -1,26 +1,43 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <app-user></app-user>
-            </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <button class="btn btn-default" @click="selectedComponent = 'appQuote'">Quote</button>
+        <button class="btn btn-default" @click="selectedComponent = 'appAuthor'">Author</button>
+        <button class="btn btn-default" @click="selectedComponent = 'appNew'">New</button>
+        <p>{{selectedComponent}}</p>
+        <hr>
+        <keep-alive>
+          <component :is="selectedComponent">Default Content</component>
+        </keep-alive>
+
+        <!-- <app-quote>
+          <h1>{{name}}</h1>
+        </app-quote>-->
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-    import User from './components/User.vue';
+import Quote from "./components/Quote.vue";
+import Author from "./components/Author.vue";
+import New from "./components/New.vue";
 
-    export default {
-        components: {
-            appUser: User
-        }
-    }
+export default {
+  data: function() {
+    return {
+      name: "Isaac",
+      selectedComponent: "appQuote"
+    };
+  },
+  components: {
+    appQuote: Quote,
+    appAuthor: Author,
+    appNew: New
+  }
+};
 </script>
 
 <style>
-    div.component {
-        border: 1px solid black;
-        padding: 30px;
-    }
 </style>
