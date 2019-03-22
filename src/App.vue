@@ -13,6 +13,7 @@
         <h1>Custom Directives</h1>
         <p v-highlight:background.delayed="'red'">Color this!</p>
         <p v-local-highlight:background.delayed.blink="{mainColor: 'red', secondColor: 'green', delay:500}">Color this!</p>
+
       </div>
     </div>
   </div>
