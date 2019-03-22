@@ -2,62 +2,46 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
-        <h1>Built in Directives</h1>
-        <p v-text="'Some Text'"></p>
+        <h1>Filters</h1>
+        <p>{{name | toUppercase | to-lowercase}} </p>
+
+        <hr>
+        <button @click="fruits.push('Berries')">Add new Item</button>
+        <input v-model="filterText">
+        <ul>
+          <li v-for="fruit in filteredFruits" :key="fruit.id">
+            {{fruit}}
+          </li>
+        </ul>
+      
+      <hr>
+      <app-list></app-list>
       </div>
+
+      
     </div>
     <hr>
-
-    <div class="row">
-      <div class="col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
-        <h1>Custom Directives</h1>
-        <p v-highlight:background.delayed="'red'">Color this!</p>
-        <p v-local-highlight:background.delayed.blink="{mainColor: 'red', secondColor: 'green', delay:500}">Color this!</p>
-
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
+import List from './components/List.vue';
+import {fruitMixin} from './components/fruitMixin';
 export default {
-  directives: {
-    "local-highlight": {
-      bind(el, binding, vnode) {
-        var delay = 0;
-
-        if (binding.modifiers["delayed"]) {
-          delay = binding.value.delay;
-        }
-        if (binding.modifiers["blink"]) {
-          let mainColor = binding.value.mainColor;
-          let secondColor = binding.value.secondColor;
-          let currentColor = mainColor;
-
-          setTimeout(() => {
-            setInterval(() => {
-              currentColor == secondColor
-                ? (currentColor = mainColor)
-                : (currentColor = secondColor);
-              if (binding.arg == "background") {
-                el.style.backgroundColor = currentColor;
-              } else {
-                el.style.color = currentColor;
-              }
-            }, 1000);
-          }, delay);
-        } else {
-          setTimeout(() => {
-            if (binding.arg == "background") {
-              el.style.backgroundColor = binding.value;
-            } else {
-              el.style.color = binding.value;
-            }
-          }, delay);
-        }
-      }
+  mixins: [fruitMixin],
+  data() {
+    return {
+      name: 'Isaac',
     }
-  }
+  },
+  filters: {
+    toUppercase(value){
+      return value.toUpperCase();
+    }
+  },
+  components: {
+    appList: List
+  },
 };
 </script>
 
