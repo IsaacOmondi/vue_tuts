@@ -2,48 +2,41 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
-        <h1>Filters</h1>
-        <p>{{name | toUppercase | to-lowercase}} </p>
-
+        <h1>Animations</h1>
         <hr>
-        <button @click="fruits.push('Berries')">Add new Item</button>
-        <input v-model="filterText">
-        <ul>
-          <li v-for="fruit in filteredFruits" :key="fruit.id">
-            {{fruit}}
-          </li>
-        </ul>
-      
-      <hr>
-      <app-list></app-list>
+        <button class="btn btn-primary" @click="show = !show">Show Alert</button>
+        <br>
+        <br>
+        <transition name="fade">
+          <div class="alert alert-info" v-if="show">This is some info</div>
+        </transition>
       </div>
-
-      
     </div>
-    <hr>
   </div>
 </template>
 
 <script>
-import List from './components/List.vue';
-import {fruitMixin} from './components/fruitMixin';
 export default {
-  mixins: [fruitMixin],
   data() {
     return {
-      name: 'Isaac',
-    }
-  },
-  filters: {
-    toUppercase(value){
-      return value.toUpperCase();
-    }
-  },
-  components: {
-    appList: List
-  },
+      show: false
+    };
+  }
 };
 </script>
 
 <style>
+.fade-enter{
+  opacity: 0;
+}
+.fade-enter-active{
+  transition: opacity 1s;
+}
+.fade-leave{
+  /* opacity: 1; */
+}
+.fade-leave-active{
+  transition: opacity 1s;
+  opacity: 0;
+}
 </style>
