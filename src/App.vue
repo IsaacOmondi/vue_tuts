@@ -14,6 +14,10 @@
         <transition name="slide">
           <div class="alert alert-info" v-if="show">Slide Transition</div>
         </transition>
+
+        <transition enter-active-class="animated bounce" leave-active-class="animated shake">
+          <div class="alert alert-info" v-if="show">Animated Transition</div>
+        </transition>
       </div>
     </div>
   </div>
