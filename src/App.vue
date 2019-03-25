@@ -8,7 +8,11 @@
         <br>
         <br>
         <transition name="fade">
-          <div class="alert alert-info" v-if="show">This is some info</div>
+          <div class="alert alert-info" v-if="show">Fade Transition</div>
+        </transition>
+
+        <transition name="slide">
+          <div class="alert alert-info" v-if="show">Slide Transition</div>
         </transition>
       </div>
     </div>
@@ -26,17 +30,48 @@ export default {
 </script>
 
 <style>
-.fade-enter{
+.fade-enter {
   opacity: 0;
 }
-.fade-enter-active{
+.fade-enter-active {
   transition: opacity 1s;
 }
-.fade-leave{
+.fade-leave {
   /* opacity: 1; */
 }
-.fade-leave-active{
+.fade-leave-active {
   transition: opacity 1s;
   opacity: 0;
+}
+
+.slide-enter {
+  opacity: 0;
+}
+.slide-enter-active {
+  animation: slide-in 1s ease-out forwards;
+  transition: opacity 0.5s;
+}
+.slide-leave {
+}
+.slide-leave-active {
+  animation: slide-out 1s ease-out forwards;
+  transition: opacity 1s;
+  opacity: 0;
+}
+@keyframes slide-in {
+  from {
+    transform: translateY(40px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes slide-out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(40px);
+  }
 }
 </style>
