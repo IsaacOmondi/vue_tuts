@@ -41,19 +41,35 @@
           :css="false">
           <div style="width:100px; height:100px; background-color:lightgreen" v-if="load"></div>
         </transition>
+
+        <hr>
+        
+        <button class="btn btn-primary"
+          @click="selectedComponent == 'success-alert' ? selectedComponent = 'danger-alert' : selectedComponent = 'success-alert'">
+          Toggle component
+        </button>
+        <br>
+        <br>
+        <transition name="fade" mode="out-in">
+          <component :is="selectedComponent"></component>
+        </transition>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import DangerAlert from './components/DangerAlert';
+import SuccessAlert from './components/SuccessAlert';
+
 export default {
   data() {
     return {
       show: false,
       load: false,
       alertAnimation: 'fade',
-      elementWidth: 100
+      elementWidth: 100,
+      selectedComponent: 'success-alert'
     };
   },
   methods: {
@@ -102,6 +118,10 @@ export default {
     leaveCancelled(el) {
       console.log('leaveCancelled')
     }
+  },
+  components: {
+    dangerAlert: DangerAlert,
+    successAlert: SuccessAlert
   }
 };
 </script>
@@ -137,7 +157,7 @@ export default {
 }
 @keyframes slide-in {
   from {
-    transform: translateY(40px);
+    transform: translateY(20px);
   }
   to {
     transform: translateY(0);
@@ -148,7 +168,7 @@ export default {
     transform: translateY(0);
   }
   to {
-    transform: translateY(40px);
+    transform: translateY(20px);
   }
 }
 </style>
